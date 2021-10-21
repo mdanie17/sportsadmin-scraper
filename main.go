@@ -36,12 +36,12 @@ type Team struct {
 
 func main() {
 	schedule := getFullSchedule()
-	// fmt.Println(len(schedule))
 	rounds := weekSplitter(schedule)
 	for _, v := range rounds {
 		v.checkWinner()
-		fmt.Println(v.Matches)
 	}
+
+	fmt.Println(rounds[1].Matches)
 
 }
 
@@ -101,7 +101,7 @@ func getFullSchedule() []MatchRow {
 }
 
 func (w *Week) checkWinner() {
-	for _, r := range w.Matches {
+	for i, r := range w.Matches {
 
 		if r.Result == "" {
 			return
@@ -119,10 +119,10 @@ func (w *Week) checkWinner() {
 		}
 
 		if homescore > awayscore {
-			r.HomeTeam.Winner = true
+			w.Matches[i].HomeTeam.Winner = true
 
 		} else if homescore < awayscore {
-			r.AwayTeam.Winner = true
+			w.Matches[i].AwayTeam.Winner = true
 
 		}
 	}
